@@ -1,0 +1,23 @@
+#generate-modal-container,
+#help-modal-container {
+  max-width: 600px;
+}
+
+#modal-add-node-container {
+  max-width: 400px;
+}
+
+.add-node-form-container {
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+}
+
+.input-container {
+  width: 100%;
+}
+
+#add-node-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+}

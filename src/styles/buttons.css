@@ -1,0 +1,30 @@
+.base-btn {
+  padding: 0.5rem 1rem;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  color: var(--constract-color);
+
+  border-color: transparent;
+  outline: none;
+  border-radius: 0.4rem;
+
+  cursor: pointer;
+}
+
+.primary-button {
+  background: var(--main);
+}
+
+.primary-button:hover {
+  background-color: var(--main-lg1);
+}
+
+.floating-button {
+  position: absolute;
+}
+
+.circular-floating-button {
+  position: absolute;
+  border-radius: 50%;
+}

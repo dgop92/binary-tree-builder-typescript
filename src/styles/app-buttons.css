@@ -1,0 +1,16 @@
+#generate-button {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+#help-button {
+  bottom: 2rem;
+  left: 2rem;
+
+  width: 50px;
+  height: 50px;
+}
+
+#help-button i {
+  color: var(--constract-color);
+}
