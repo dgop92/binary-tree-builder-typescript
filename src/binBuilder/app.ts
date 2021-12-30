@@ -1,10 +1,16 @@
-// import "normalize.css";
+import "normalize.css";
 import MicroModal from "micromodal";
 import { loadTreeFromQuery } from "./importTree";
 import { treeOperations, updateNodePosition } from "./binAlgos";
+import { HTML5Form } from "./utils";
 // bug with infinite Canvas, cannot use ES6 import
-const InfiniteCanvas = require("ef-infinite-canvas");
 // import { InfiniteCanvas } from "ef-infinite-canvas";
+const InfiniteCanvas = require("ef-infinite-canvas");
+
+const addNodeForm = new HTML5Form(
+  document.getElementById("add-node-form") as HTMLFormElement,
+  ".input-container input"
+);
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const infiniteCanvas = new InfiniteCanvas(canvas);
