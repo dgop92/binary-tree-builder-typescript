@@ -1,16 +1,18 @@
 import { InfiniteCanvasRenderingContext2D } from "ef-infinite-canvas/dist/types/infinite-context/infinite-canvas-rendering-context-2d";
 import { getParentNode, getSeparationDelta } from "./binAlgos";
+import { BinaryTree } from "./binaryTree";
+import { TreeDrawer } from "./commonTypes";
 import { TreeNode } from "./treeNode";
 
-export class TreeDrawer {
-  readonly nodes: (TreeNode | null)[];
+export class BasicTreeDrawer implements TreeDrawer {
+  binaryTree: BinaryTree;
   canvasContext: InfiniteCanvasRenderingContext2D;
 
   constructor(
-    nodes: (TreeNode | null)[],
+    binaryTree: BinaryTree,
     canvasContext: InfiniteCanvasRenderingContext2D
   ) {
-    this.nodes = nodes;
+    this.binaryTree = binaryTree;
     this.canvasContext = canvasContext;
   }
 
@@ -55,12 +57,15 @@ export class TreeDrawer {
     this.canvasContext.fillText(treeNode.value, x, y + 4);
   }
 
-  updateNodePosition(treeNode: TreeNode, currentMaxLevel: number) {
-    const parentNode = getParentNode(treeNode.i, this.nodes);
+  updateNodePosition(treeNode: TreeNode) {
+    const parentNode = getParentNode(treeNode.i, this.binaryTree.nodes);
 
     if (parentNode) {
       const sign = treeNode.i % 2 == 0 ? 1 : -1;
-      const separation = getSeparationDelta(parentNode.level, currentMaxLevel);
+      const separation = getSeparationDelta(
+        parentNode.level,
+        this.binaryTree.currentMaxLevel
+      );
       const position = {
         x: parentNode.position.x + separation * sign,
         y: parentNode.position.y + separation,
@@ -71,7 +76,7 @@ export class TreeDrawer {
   }
 
   drawLine(treeNode: TreeNode) {
-    const parentNode = getParentNode(treeNode.i, this.nodes);
+    const parentNode = getParentNode(treeNode.i, this.binaryTree.nodes);
     if (parentNode) {
       const parentPosition = parentNode.position;
       const sign = treeNode.i % 2 == 0 ? 1 : -1;
@@ -88,12 +93,12 @@ export class TreeDrawer {
     }
   }
 
-  draw(currentMaxLevel: number) {
+  draw() {
     this.canvasContext.clearRect(-Infinity, -Infinity, Infinity, Infinity);
 
-    for (const treeNode of this.nodes) {
+    for (const treeNode of this.binaryTree.nodes) {
       if (treeNode) {
-        this.updateNodePosition(treeNode, currentMaxLevel);
+        this.updateNodePosition(treeNode);
         this.drawNode(treeNode);
         this.drawLine(treeNode);
       }
