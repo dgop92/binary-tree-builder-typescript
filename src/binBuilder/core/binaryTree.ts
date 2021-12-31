@@ -3,10 +3,10 @@ import { createNewNode } from "./binAlgos";
 import { TreeNode } from "./treeNode";
 
 export class BinaryTree {
-  readonly nodes: TreeNode[];
+  readonly nodes: (TreeNode | null)[];
   currentMaxLevel: number;
 
-  constructor(nodes: TreeNode[], currentMaxLevel: number) {
+  constructor(nodes: (TreeNode | null)[], currentMaxLevel: number) {
     this.currentMaxLevel = currentMaxLevel;
     this.nodes = nodes;
   }

@@ -28,7 +28,14 @@ const { nodes, currentMaxLevel } = loadTreeFromQuery();
 const binaryTree = new BinaryTree(nodes, currentMaxLevel);
 const treeDrawer = new TreeDrawer(binaryTree.nodes, canvasContext);
 
-function onClickCanvas(event: UIEvent) {}
+function onClickCanvas(event: MouseEvent) {
+  const x = event.clientX + transformationOffSet.x;
+  const y = event.clientY + transformationOffSet.y;
+
+  const treeNode = binaryTree.nodes.filter((node) =>
+    node ? node.isInside(x, y) : false
+  );
+}
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;

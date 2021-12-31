@@ -2,12 +2,12 @@ import { createNewNode, treeOperations } from "./binAlgos";
 import { TreeNode } from "./treeNode";
 import { MAX_NODES } from "../utils/constant";
 
-function getEmptyNodes(): TreeNode[] {
+function getEmptyNodes(): (TreeNode | null)[] {
   return Array(MAX_NODES).fill(null);
 }
 
-function addDefaultRootNode(nodes: TreeNode[]) {
-  nodes[0] = new TreeNode(0, 1, "1", {
+function getDefaultNode() {
+  return new TreeNode(0, 1, "1", {
     x: Math.floor(window.innerWidth / 2),
     y: 100,
   });
@@ -39,7 +39,7 @@ export function loadTreeFromQuery() {
 
   let currentMaxLevel = 1;
   const nodes = getEmptyNodes();
-  addDefaultRootNode(nodes);
+  nodes[0] = getDefaultNode();
 
   let treeAsArray: string[] | null = null;
   try {
@@ -68,8 +68,10 @@ export function loadTreeFromQuery() {
       if (value !== "null") {
         const parentIndex = treeOperations.parent(binIndex);
         const isLeft = binIndex % 2 !== 0;
+        /* list of nodes always have a root at index 0 */
+        /* if throws an error, that the means that the representation is wrong */
         const newNode = createNewNode(
-          nodes[parentIndex],
+          nodes[parentIndex]!,
           value,
           currentMaxLevel,
           isLeft

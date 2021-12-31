@@ -20,7 +20,10 @@ export function getSeparationDelta(level: number, currentMaxLevel: number) {
   return separationUnit * 70 + 80;
 }
 
-export function getParentNode(i: number, nodes: TreeNode[]): TreeNode | null {
+export function getParentNode(
+  i: number,
+  nodes: (TreeNode | null)[]
+): TreeNode | null {
   const parentIndex = treeOperations.parent(i);
   return nodes[parentIndex];
 }

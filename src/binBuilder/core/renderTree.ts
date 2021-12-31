@@ -3,11 +3,11 @@ import { getParentNode, getSeparationDelta } from "./binAlgos";
 import { TreeNode } from "./treeNode";
 
 export class TreeDrawer {
-  readonly nodes: TreeNode[];
+  readonly nodes: (TreeNode | null)[];
   canvasContext: InfiniteCanvasRenderingContext2D;
 
   constructor(
-    nodes: TreeNode[],
+    nodes: (TreeNode | null)[],
     canvasContext: InfiniteCanvasRenderingContext2D
   ) {
     this.nodes = nodes;
