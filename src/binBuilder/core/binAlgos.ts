@@ -1,4 +1,4 @@
-import { TreeNode } from "./binaryTree";
+import { TreeNode } from "./treeNode";
 
 export const treeOperations = {
   left: (i: number) => i * 2 + 1,
@@ -6,42 +6,23 @@ export const treeOperations = {
   parent: (i: number) => Math.floor((i - 1) / 2),
 };
 
-function getInverseLevel(level: number, maxLevel: number) {
-  return maxLevel - level + 1;
+function getInverseLevel(level: number, currentMaxLevel: number) {
+  return currentMaxLevel - level + 1;
 }
 
 function getSeparationUnit(inverseLevel: number) {
   return inverseLevel <= 2 ? 0 : Math.pow(2, inverseLevel - 2) - 1;
 }
 
-function getSeparationDelta(level: number, maxLevel: number) {
-  const inverseLevel = getInverseLevel(level, maxLevel);
+export function getSeparationDelta(level: number, currentMaxLevel: number) {
+  const inverseLevel = getInverseLevel(level, currentMaxLevel);
   const separationUnit = getSeparationUnit(inverseLevel);
   return separationUnit * 70 + 80;
 }
 
-function getParentNode(i: number, nodes: TreeNode[]) {
+export function getParentNode(i: number, nodes: TreeNode[]): TreeNode | null {
   const parentIndex = treeOperations.parent(i);
   return nodes[parentIndex];
-}
-
-export function updateNodePosition(
-  treeNode: TreeNode,
-  nodes: TreeNode[],
-  maxLevel: number
-) {
-  const parentNode = getParentNode(treeNode.i, nodes);
-
-  if (parentNode) {
-    const sign = treeNode.i % 2 == 0 ? 1 : -1;
-    const separation = getSeparationDelta(parentNode.level, maxLevel);
-    const position = {
-      x: parentNode.position.x + separation * sign,
-      y: parentNode.position.y + separation,
-    };
-
-    treeNode.position = position;
-  }
 }
 
 export function getManualRepresentation(nodes: TreeNode[]) {
@@ -64,10 +45,10 @@ export function getManualRepresentation(nodes: TreeNode[]) {
   return result.trim();
 }
 
-export function getNewNode(
+export function createNewNode(
   parentNode: TreeNode,
   value: string,
-  maxLevel: number,
+  currentMaxLevel: number,
   isLeft: boolean
 ) {
   const newLevel = parentNode.level + 1;
@@ -76,7 +57,7 @@ export function getNewNode(
   const child = isLeft
     ? treeOperations.left(parentNode.i)
     : treeOperations.right(parentNode.i);
-  const separation = getSeparationDelta(parentNode.level, maxLevel);
+  const separation = getSeparationDelta(parentNode.level, currentMaxLevel);
 
   return new TreeNode(child, newLevel, value, {
     x: parentNode.position.x + separation * sign,

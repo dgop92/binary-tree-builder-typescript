@@ -1,6 +1,6 @@
-import { getNewNode, treeOperations } from "./binAlgos";
-import { TreeNode } from "./binaryTree";
-import { MAX_NODES } from "./constant";
+import { createNewNode, treeOperations } from "./binAlgos";
+import { TreeNode } from "./treeNode";
+import { MAX_NODES } from "../utils/constant";
 
 function getEmptyNodes(): TreeNode[] {
   return Array(MAX_NODES).fill(null);
@@ -31,11 +31,13 @@ function getRawTreeAsArray(indextreeQuery: string | null) {
   return treeAsArray;
 }
 
+/* TODO: replace alert() by snackbar */
 export function loadTreeFromQuery() {
   const params = new URLSearchParams(window.location.search);
   // indextree= is not undefined, it returns ""
   const indextreeQuery = params.get("indextree") ?? null;
 
+  let currentMaxLevel = 1;
   const nodes = getEmptyNodes();
   addDefaultRootNode(nodes);
 
@@ -46,11 +48,11 @@ export function loadTreeFromQuery() {
     if (error instanceof Error) {
       alert(error.message);
     }
-    return { nodes, maxLevel: 1 };
+    return { nodes, currentMaxLevel };
   }
 
   if (treeAsArray === null) {
-    return { nodes, maxLevel: 1 };
+    return { nodes, currentMaxLevel };
   }
 
   // an unexpected error is an invalid binary tree
@@ -59,7 +61,6 @@ export function loadTreeFromQuery() {
     // to above validations
 
     const rootValue = treeAsArray.shift()!;
-    let maxLevel = 1;
 
     for (let index = 0; index < treeAsArray.length; index++) {
       const value = treeAsArray[index];
@@ -67,9 +68,14 @@ export function loadTreeFromQuery() {
       if (value !== "null") {
         const parentIndex = treeOperations.parent(binIndex);
         const isLeft = binIndex % 2 !== 0;
-        const newNode = getNewNode(nodes[parentIndex], value, maxLevel, isLeft);
-        if (newNode.level > maxLevel) {
-          maxLevel = newNode.level;
+        const newNode = createNewNode(
+          nodes[parentIndex],
+          value,
+          currentMaxLevel,
+          isLeft
+        );
+        if (newNode.level > currentMaxLevel) {
+          currentMaxLevel = newNode.level;
         }
         nodes[newNode.i] = newNode;
       }
@@ -83,5 +89,5 @@ export function loadTreeFromQuery() {
     alert("invalid binary tree array representation");
   }
 
-  return { nodes, maxLevel: 1 };
+  return { nodes, currentMaxLevel };
 }

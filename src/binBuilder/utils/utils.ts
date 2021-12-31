@@ -2,7 +2,7 @@ export class HTML5Form {
   html5form: HTMLFormElement;
   onValidInput: (input: HTMLInputElement) => void;
   onInvalidInput: (input: HTMLInputElement) => void;
-  onSuccesForm: (data: object) => object;
+  onSuccesForm: (data: { [key: string]: string }) => void;
   inputs: NodeListOf<HTMLInputElement>;
 
   constructor(html5form: HTMLFormElement, inputQuery: string) {
@@ -16,7 +16,7 @@ export class HTML5Form {
       input.parentElement?.classList.add("invalid-input-container");
       input.nextElementSibling!.innerHTML = input.validationMessage;
     };
-    this.onSuccesForm = (_) => ({});
+    this.onSuccesForm = (_) => {};
     this.inputs = this.html5form.querySelectorAll(inputQuery);
 
     this.init();
