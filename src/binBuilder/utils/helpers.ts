@@ -71,3 +71,8 @@ export class HTML5Form {
     return null; // this is bad, but it cannot happen
   }
 }
+
+export const getLinkToShare = (binArray: any[]) => {
+  const pageName = window.location.href.split("?")[0];
+  return `${pageName}?indextree=${binArray.toString()}`;
+};

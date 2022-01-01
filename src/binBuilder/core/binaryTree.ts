@@ -1,6 +1,6 @@
 import MicroModal from "micromodal";
 import { LEVEL_THRESHOLD } from "../utils/constant";
-import { HTML5Form } from "../utils/utils";
+import { HTML5Form } from "../utils/helpers";
 import { createNewNode } from "./binAlgos";
 import { BinCanvasListener, TreeDrawer } from "./commonTypes";
 import { TreeNode } from "./treeNode";

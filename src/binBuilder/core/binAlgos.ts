@@ -28,11 +28,12 @@ export function getParentNode(
   return nodes[parentIndex];
 }
 
-export function getManualRepresentation(nodes: TreeNode[]) {
+export function getManualRepresentation(nodes: (TreeNode | null)[]) {
   let result = "";
 
   function preOrder(i: number, word: string) {
-    result += `${word} = Node(${nodes[i].value})\n`;
+    // Root always exits
+    result += `${word} = Node(${nodes[i]!.value})\n`;
 
     const leftIndex = treeOperations.left(i);
     if (leftIndex < nodes.length && nodes[leftIndex] !== null) {
@@ -66,4 +67,17 @@ export function createNewNode(
     x: parentNode.position.x + separation * sign,
     y: parentNode.position.y + separation,
   });
+}
+
+export function getBinArrayRepresentation(nodes: (TreeNode | null)[]) {
+  let newLenght: number;
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    if (nodes[i] !== null) {
+      newLenght = i + 1;
+      break;
+    }
+  }
+  return nodes
+    .filter((_, i) => i < newLenght)
+    .map((treeNode) => (treeNode === null ? "null" : treeNode.value));
 }

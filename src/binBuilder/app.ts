@@ -4,9 +4,12 @@ import { InfiniteCanvasDrawEvent } from "ef-infinite-canvas/dist/types/custom-ev
 import { loadTreeFromQuery } from "./core/importTree";
 import { BinaryTree, TreeMutator } from "./core/binaryTree";
 import { BasicTreeDrawer } from "./core/renderTree";
-import { HTML5Form } from "./utils/utils";
+import { getLinkToShare, HTML5Form } from "./utils/helpers";
 import { BinCanvasListener } from "./core/commonTypes";
-import { treeOperations } from "./core/binAlgos";
+import {
+  getBinArrayRepresentation,
+  getManualRepresentation,
+} from "./core/binAlgos";
 // bug with infinite Canvas, cannot use ES6 import
 // import { InfiniteCanvas } from "ef-infinite-canvas";
 const InfiniteCanvas = require("ef-infinite-canvas");
@@ -70,4 +73,18 @@ infiniteCanvas.addEventListener("draw", (e: InfiniteCanvasDrawEvent) => {
 });
 resizeCanvas();
 
-MicroModal.init();
+MicroModal.init({
+  onShow: (modal) => {
+    if (modal?.id == "generate-modal") {
+      const binArray = getBinArrayRepresentation(binaryTree.nodes);
+      const manualRepr = getManualRepresentation(binaryTree.nodes);
+
+      document.getElementById("link-to-share")!.innerHTML =
+        getLinkToShare(binArray);
+      document.getElementById(
+        "bin-arry-preview"
+      )!.innerHTML = `[${binArray.toString()}]`;
+      document.getElementById("manual-preview")!.innerHTML = manualRepr;
+    }
+  },
+});
