@@ -2,10 +2,10 @@
   "name": "binary-tree-builder-typescript",
   "version": "1.0.0",
   "description": "a binary tree builder build with typescript",
-  "main": "index.js",
+  "source": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "start": "parcel",
+    "build": "parcel build"
   },
   "author": "dgop92",
   "license": "ISC",
