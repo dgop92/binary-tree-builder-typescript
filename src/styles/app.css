@@ -28,8 +28,17 @@ canvas {
 }
 
 p,
+a,
 h5 {
   font-family: "Open Sans", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 h5 {
