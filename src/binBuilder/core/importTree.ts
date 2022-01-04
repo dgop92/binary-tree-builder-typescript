@@ -1,6 +1,7 @@
 import { createNewNode, treeOperations } from "./binAlgos";
 import { TreeNode } from "./treeNode";
 import { MAX_NODES } from "../utils/constant";
+import { showErrorMessage } from "../utils/snacks";
 
 function getEmptyNodes(): (TreeNode | null)[] {
   return Array(MAX_NODES).fill(null);
@@ -31,7 +32,6 @@ function getRawTreeAsArray(indextreeQuery: string | null) {
   return treeAsArray;
 }
 
-/* TODO: replace alert() by snackbar */
 export function loadTreeFromQuery() {
   const params = new URLSearchParams(window.location.search);
   // indextree= is not undefined, it returns ""
@@ -46,7 +46,7 @@ export function loadTreeFromQuery() {
     treeAsArray = getRawTreeAsArray(indextreeQuery);
   } catch (error) {
     if (error instanceof Error) {
-      alert(error.message);
+      showErrorMessage({ text: error.message, duration: 7000 });
     }
     return { nodes, currentMaxLevel };
   }
@@ -88,7 +88,10 @@ export function loadTreeFromQuery() {
       y: 100,
     });
   } catch (error) {
-    alert("invalid binary tree array representation");
+    showErrorMessage({
+      text: "invalid binary tree array representation",
+      duration: 7000,
+    });
   }
 
   return { nodes, currentMaxLevel };

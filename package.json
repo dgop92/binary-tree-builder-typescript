@@ -16,6 +16,7 @@
     "@types/micromodal": "^0.3.3",
     "ef-infinite-canvas": "^0.5.2-alpha",
     "micromodal": "^0.4.10",
+    "node-snackbar": "^0.1.16",
     "normalize.css": "^8.0.1"
   }
 }

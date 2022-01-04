@@ -1,6 +1,7 @@
 import MicroModal from "micromodal";
 import { LEVEL_THRESHOLD } from "../utils/constant";
 import { HTML5Form } from "../utils/helpers";
+import { showErrorMessage } from "../utils/snacks";
 import { createNewNode } from "./binAlgos";
 import { BinCanvasListener, TreeDrawer } from "./commonTypes";
 import { TreeNode } from "./treeNode";
@@ -67,7 +68,7 @@ export class TreeMutator implements BinCanvasListener {
       const value = data["value"];
       const result = this.binaryTree.addNode(treeNode, value, isLeft);
       if (result.error) {
-        alert(result.errorMessage);
+        showErrorMessage({ text: result.errorMessage, duration: 7000 });
       }
       MicroModal.close("modal-add-node");
       this.treeDrawer.draw();

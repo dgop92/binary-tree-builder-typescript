@@ -1,4 +1,5 @@
 import "normalize.css";
+import "node-snackbar/dist/snackbar.min.css";
 import MicroModal from "micromodal";
 import { InfiniteCanvasDrawEvent } from "ef-infinite-canvas/dist/types/custom-events/infinite-canvas-draw-event";
 import { loadTreeFromQuery } from "./core/importTree";
